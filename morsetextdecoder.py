@@ -15,14 +15,16 @@ inv_chart = {a: b for b, a in morseChart.items()}
 
 def morseDecode(message):
     words = message.split("/")
+    i = 0
+    letters = []
     for word in words:
-        letters = word.split(",")
+        letters.append(word.split(","))
     mc = ""
-    for word in words:
-        for letter in letters:
-            mc += inv_chart[letter]
+    for letter in letters:
+        for code in letter:
+            mc += inv_chart[code]
         mc += " "
-    print("Result:"+mc)
+    print("Result: "+mc)
 
 print("Morse Decoder")
 while True:
