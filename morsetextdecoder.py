@@ -22,6 +22,7 @@ def morseDecode(message):
     mc = ""
     for letter in letters:
         for code in letter:
+            code = code.strip(",")
             mc += inv_chart[code]
         mc += " "
     print("Result: "+mc)
