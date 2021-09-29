@@ -139,7 +139,10 @@ def decodeHumanReadableMorse(message):
     mc = ""
     for letter in letters:
         for code in letter:
-            mc += MORSE_DECODE_CHART[code]
+            try:
+                mc += MORSE_DECODE_CHART[code]
+            except KeyError as e:
+                mc += "?"
         mc += " "
     return(mc)
 
