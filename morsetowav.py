@@ -13,12 +13,17 @@ morseChart={'A':'.-', 'B':'-...',
             '4':'....-', '5':'.....', '6':'-....',
             '7':'--...', '8':'---..', '9':'----.',
             '0':'-----', ' ':'____'} # 7 units space between words (1 included per .wav sample, 2 for letter, +4 extra for space = 7)
-
+   
 def morseEncode(message, filename, dump_morse_text=False):
     mc = "_"
-    for i in message:
-        mc += morseChart[i] + "_" * 2 # 3 units space between letters (1 included per .wav sample)
+    message = message.upper()
     
+    for i in message:
+        try:
+            mc += morseChart[i] + "_" * 2 # 3 units space between letters (1 included per .wav sample)
+        except KeyError as e:
+            mc += morseChart[" "] + "_" * 2 # Replace invalid character with SPACE
+            print("Invalid character '" + i + "' skipped.")
     
     if(dump_morse_text): # Dump morse as text
         print(mc)
@@ -33,7 +38,7 @@ def morseEncode(message, filename, dump_morse_text=False):
             with wave.open("wav-samples/"+infile+".wav") as w:
                 output.writeframes(w.readframes(w.getnframes()))
 
-print("Morse Code WAV Generator")
+print("KD2WZZ's Morse to WAV Converter")
 while True:
     print("Enter message string (A-Z, 0-9, spaces)")
     userMessage = input(":")

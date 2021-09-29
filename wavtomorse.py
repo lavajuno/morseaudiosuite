@@ -138,7 +138,7 @@ def decodeHumanReadableMorse(message):
         mc += " "
     return(mc)
 
-print("WAV to Morse")
+print("KD2WZZ's WAV to Morse Converter")
 while True:
     print("Enter .wav file to decode (example.wav)")
     usrin = input(":")

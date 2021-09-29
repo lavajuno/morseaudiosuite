@@ -16,3 +16,10 @@ Most of these will be quality of life improvements, the suite is fully functiona
  - Decode morse directly from an audio input device (ex. VB-Audio Cable and SDR#)
  - Auto-format input files to correct format (48khz, 16 bit PCM, mono)
  - Decode morse at different speeds
+# Support
+If you have any issues, please let me know at the email in my profile.
+If you're transmitting over radio, I hope to hear you on the air at some point soon.
+
+73,
+
+Juno (KD2WZZ)
