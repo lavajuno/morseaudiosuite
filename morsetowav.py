@@ -17,12 +17,10 @@ morseChart={'A':'.-', 'B':'-...',
 def morseEncode(message, filename, dump_morse_text=False):
     mc = "_"
     message = message.upper()
-    
     for i in message:
         try:
             mc += morseChart[i] + "_" * 2 # 3 units space between letters (1 included per .wav sample)
         except KeyError as e:
-            mc += morseChart[" "] + "_" * 2 # Replace invalid character with SPACE
             print("Invalid character '" + i + "' skipped.")
     
     if(dump_morse_text): # Dump morse as text

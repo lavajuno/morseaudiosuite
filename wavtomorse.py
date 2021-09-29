@@ -95,11 +95,11 @@ def getHumanReadableMorse(morseData):
     streak1 = 0
     while(morseIter < len(morseData)): # Iterate over each item and determine if it is the start, end, or part of a character.
         if(morseData[morseIter] == 1):
-            if(streak0 > 5):
-                humanMorse += "/" # 7 zeroes in a row means a space. This will accept 6 or 7 in case of an error.
+            if(streak0 > 6):
+                humanMorse += "/" # 7 zeroes in a row means a space.
                 streak0 = 0
                 streak1 = 0
-            elif(streak0 > 2): # 3 zeroes in a row means a new character. This is not error tolerant.
+            elif(streak0 > 2): # 3 zeroes in a row means a new character.
                 humanMorse += ","
                 streak0 = 0
                 streak1 = 0
@@ -107,12 +107,12 @@ def getHumanReadableMorse(morseData):
                 streak0 = 0
             streak1 += 1
         else:
-            if(streak1 == 1):
-                humanMorse += "." # 1 one means a dit. This is not error tolerant.
+            if(streak1 > 2):
+                humanMorse += "-" # 3 ones in a row means a dah.
                 streak1 = 0
                 streak0 = 0
-            elif(streak1 > 1):
-                humanMorse += "-" # 3 ones in a row means a dah. This will accept 2 or 3 in case of an error.
+            elif(streak1 > 0):
+                humanMorse += "." # 1 one means a dit.
                 streak1 = 0
                 streak0 = 0
             else:
