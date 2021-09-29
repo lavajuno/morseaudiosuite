@@ -5,11 +5,6 @@ import struct
 # 0.1s: 4800, 0.05s: 2400, etc.
 UNIT_TIME = 2400
 
-# We're going to be splitting each unit into 4 chunks.
-# If at least 2 of them qualify as logical ON, then we assume the unit is ON.
-# DO NOT CHANGE THIS LINE. Bad things will happen. You have been warned.
-CHUNK_TIME = UNIT_TIME / 4
-
 # Value at which an amplitude is considered ON or OFF. (0-16384) Default value is 12000
 AMPLITUDE_LOGIC_THRESHOLD = 12000
 
@@ -19,7 +14,7 @@ START_DECODE_AMPLITUDE = 12000
 
 # Offset (in samples) to apply to start decoding.
 # This is necessary because (ideally) the start listener won't trip until midway up the first wave.
-# It shouldn't be necessary to change this unless the frequency of the input code is changed.
+# It shouldn't be necessary to change this unless the frequency of the input code is changed. (Default: 550 Hz)
 START_DECODE_OFFSET = -8
 
 MORSE_ENCODE_CHART={'A':'.-', 'B':'-...',
@@ -70,30 +65,27 @@ def getMorseData(filename):
         expFrames = []
         chunkDevs = []
         decodedChunks = []
+        
+        # Unpack the frames of the input .wav file
         for i in range(0, nFrames):
             sFrame = f.readframes(1)
-            expFrames.append(struct.unpack("<h", sFrame)[0]) # Unpack the frames of the input .wav file
+            expFrames.append(struct.unpack("<h", sFrame)[0])
 
-        startSample = findStart(expFrames) # Find the start of the morse data
+        # Find the start of the morse data
+        startSample = findStart(expFrames) 
 
-        # Split wav data into chunks and analyze
-        chunkIter = startSample + CHUNK_TIME
-        while(chunkIter < nFrames - int(CHUNK_TIME - 1)): # Get logic zeros or ones from average abs. deviation
-            chunk = expFrames[int(chunkIter - CHUNK_TIME):int(chunkIter)]
-            chunkDevs.append(avgAbsDeviation(chunk))
-            chunkIter += CHUNK_TIME
-        chunkIter = 4
-        while(chunkIter < len(chunkDevs) - 3): # Error tolerant logic decode
-            logicalOnCount = 0
-            chunk = chunkDevs[int(chunkIter - 4):int(chunkIter)]
-            for i in chunk:
-                logicalOnCount += logicalDecode(i)
-            if(logicalOnCount > 2):
-                decodedChunks.append(1)
-            else:
-                decodedChunks.append(0)
-            chunkIter += 4
+        # Split wav data into chunks and analyze the avg. abs. deviation of each chunk
+        chunkIter = startSample + UNIT_TIME
+        while(chunkIter < nFrames - int(UNIT_TIME - 1)): 
+            chunk = expFrames[int(chunkIter - UNIT_TIME):int(chunkIter)]
+            chunkDevs.append(int(avgAbsDeviation(chunk)))
+            chunkIter += UNIT_TIME
+            
+        # Get logic zeros or ones from average abs. deviation
+        for i in chunkDevs:
+            decodedChunks.append(logicalDecode(i))
         return decodedChunks
+        
 
 # Convert raw morse into human readable dits, dahs, and slashes.
 def getHumanReadableMorse(morseData):
