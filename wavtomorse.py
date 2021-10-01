@@ -5,12 +5,8 @@ import struct
 # 0.1s: 4800, 0.05s: 2400, etc.
 UNIT_TIME = 2400
 
-# Value at which an amplitude is considered ON or OFF. (0-16384) Default value is 12000
-AMPLITUDE_LOGIC_THRESHOLD = 12000
-
-# Exact amplitude at which the program recognizes a code transmission has started.
-# Should be similar to the amplitude logic threshold, if not the same.
-START_DECODE_AMPLITUDE = 12000
+# Value at which an amplitude is considered ON or OFF. (10000-16000) Default value is 13000
+AMPLITUDE_LOGIC_THRESHOLD = 13000
 
 # Offset (in samples) to apply to start decoding.
 # This is necessary because (ideally) the start listener won't trip until midway up the first wave.
@@ -50,7 +46,7 @@ def avgAbsDeviation(chunk):
 # Find the start of the morse code data in a stream using the amplitude
 def findStart(chunk):
     iterIndex = 0
-    while(abs(chunk[iterIndex]) < START_DECODE_AMPLITUDE):
+    while(abs(chunk[iterIndex]) < AMPLITUDE_LOGIC_THRESHOLD):
         iterIndex += 1
     iterIndex += START_DECODE_OFFSET
     if(iterIndex < 0):
