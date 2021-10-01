@@ -11,7 +11,7 @@ Just mind your settings when recording over radio (I recommend using Audacity, a
 Most of these will be quality of life improvements, the suite is fully functional as of initial release.
 # Release 2.0:
  - Ability to encode and decode at different speeds (Planned: 100ms, 50ms, 20ms, and 10ms unit times.)
-# wavtomorse.py:
+# Later releases:
  - Play encoded morse directly from morsetowav.py
  - Decode morse directly from an audio input device in wavtomorse.py
  - Auto-format input files to correct sample rate and channel configuration when importing wav files into wavtomorse.py
