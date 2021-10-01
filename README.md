@@ -9,13 +9,12 @@ morsetowav.py already generates files at the correct sample rate and bit depth, 
 Just mind your settings when recording over radio (I recommend using Audacity, as it lets you set your sample rate and bit depth per channel, as well as letting you mix down stereo to mono.
 # Planned features:
 Most of these will be quality of life improvements, the suite is fully functional as of initial release.
-# morsetowav.py:
- - Play encoded morse directly from the command line without writing any files
- - Encode morse at different speeds
+# Release 2.0:
+ - Ability to encode and decode at different speeds (Planned: 100ms, 50ms, 20ms, and 10ms unit times.)
 # wavtomorse.py:
- - Decode morse directly from an audio input device (ex. VB-Audio Cable and SDR#)
- - Auto-format input files to correct format (48khz, 16 bit PCM, mono)
- - Decode morse at different speeds
+ - Play encoded morse directly from morsetowav.py
+ - Decode morse directly from an audio input device in wavtomorse.py
+ - Auto-format input files to correct sample rate and channel configuration when importing wav files into wavtomorse.py
 # Support
 If you have any issues, please let me know at the email in my profile.
 If you're transmitting over radio, I hope to hear you on the air at some point soon.
