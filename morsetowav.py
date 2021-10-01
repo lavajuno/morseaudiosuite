@@ -1,4 +1,3 @@
-
 import wave
 morseChart={'A':'.-', 'B':'-...',
             'C':'-.-.', 'D':'-..', 'E':'.',
@@ -21,15 +20,16 @@ def morseEncode(message, filename, dump_morse_text=False):
         try:
             mc += morseChart[i] + "_" * 2 # 3 units space between letters (1 included per .wav sample)
         except KeyError as e:
-            print("Invalid character '" + i + "' skipped.")
+            print("Invalid character '" + i + "' skipped.") # Screen out invalid characters and omit them from the data to send
     
     if(dump_morse_text): # Dump morse as text
         print(mc)
-    wavFiles = []
+
+    wavFiles = [] # Not technically necessary at the moment but leaves the door open for different encoding speeds
     for i in mc: 
         wavFiles.append(i)
     
-    with wave.open(filename+".wav", 'wb') as output: # Stitch audio samples
+    with wave.open(filename+".wav", 'wb') as output: # Stitch audio samples and output
         with wave.open("wav-samples/"+wavFiles[0] + ".wav") as w:
             output.setparams(w.getparams())
         for infile in wavFiles:
