@@ -65,7 +65,7 @@ def findStart(chunk):
 # analyzes the average absolute deviation of each chunk, and outputs
 # the resulting digital data.
 def getMorseData(filename):
-    with wave.open(filename, "r") as f:
+    with wave.open(filename + ".wav", "r") as f:
         sampleRate = f.getframerate()
         nFrames = f.getnframes()
         expFrames = []
@@ -149,7 +149,7 @@ def decodeHumanReadableMorse(message):
 
 print("KD2WZZ's WAV to Morse Converter")
 while True:
-    print("Enter .wav file to decode (example.wav)")
+    print("Enter input filename (w/o extension)")
     usrin = input(":")
     print("Analyzing audio...")
     md = getMorseData(usrin)
